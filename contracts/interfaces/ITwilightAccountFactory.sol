@@ -6,12 +6,14 @@ interface ITwilightAccountFactory {
 
     function createAccount(
         address owner,
-        string memory username
+        string calldata username,
+        string calldata platform
     ) external returns (SimpleAccount);
 
     function getAddress(
         address owner, 
-        string memory username
+        string calldata username,
+        string calldata platform
     ) external view returns (address);
 
 }

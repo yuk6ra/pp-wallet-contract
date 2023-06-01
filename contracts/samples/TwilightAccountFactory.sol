@@ -27,13 +27,13 @@ contract TwilightAccountFactory is ITwilightAccountFactory {
      * Note that during UserOperation execution, this method is called only if the account is not deployed.
      * This method returns an existing account address so that entryPoint.getSenderAddress() would work even after account creation
      */
-    function createAccount(address owner, string calldata username) public returns (SimpleAccount ret) {
-        address addr = getAddress(owner, username);
+    function createAccount(address owner, string calldata username, string calldata platform) public returns (SimpleAccount ret) {
+        address addr = getAddress(owner, username, platform);
         uint codeSize = addr.code.length;
         if (codeSize > 0) {
             return SimpleAccount(payable(addr));
         }
-        ret = SimpleAccount(payable(new ERC1967Proxy{salt : _generateSalt(username)}(
+        ret = SimpleAccount(payable(new ERC1967Proxy{salt : _generateSalt(username, platform)}(
                 address(accountImplementation),
                 abi.encodeCall(SimpleAccount.initialize, (owner))
             )));
@@ -42,8 +42,8 @@ contract TwilightAccountFactory is ITwilightAccountFactory {
     /**
      * calculate the counterfactual address of this account as it would be returned by createAccount()
      */
-    function getAddress(address owner, string calldata username) public view returns (address) {
-        return Create2.computeAddress(_generateSalt(username), keccak256(abi.encodePacked(
+    function getAddress(address owner, string calldata username, string calldata platform) public view returns (address) {
+        return Create2.computeAddress(_generateSalt(username, platform), keccak256(abi.encodePacked(
                 type(ERC1967Proxy).creationCode,
                 abi.encode(
                     address(accountImplementation),
@@ -52,12 +52,9 @@ contract TwilightAccountFactory is ITwilightAccountFactory {
             )));
     }
 
-    function _generateSalt(string calldata username) private pure returns (bytes32) {
-        return keccak256(bytes(username.toLowerCase()));
+    function _generateSalt(string calldata username, string calldata platform) private pure returns (bytes32) {
+        bytes memory usernameBytes = bytes(username.toLowerCase());
+        bytes memory platformBytes = bytes(platform.toLowerCase());
+        return keccak256(abi.encodePacked(usernameBytes, platformBytes));
     }
-
-    // function getPlatformId(string memory platform) public pure returns (bytes32) {
-    //     return keccak256(bytes(platform));
-    // }
-
 }
