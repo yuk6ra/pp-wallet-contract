@@ -1,11 +1,10 @@
-# TWILIGHT
+# Twilight Wallet 
 
-## Deploy
-
-```
-$ npx hardhat run scripts/deploy-twilight-account-factory.js --network mumbai                                                  ```
+## Deploy & Verify
 
 ```
+$ npx hardhat run scripts/deploy-twilight-account-factory.js --network mumbai
+
 $ npx hardhat verify <CA>  --network mumbai --constructor-args args/simple-acount-factory.js
 ```
 
