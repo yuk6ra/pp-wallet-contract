@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.18;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+// import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
@@ -9,7 +9,7 @@ import "./SimpleAccount.sol";
 import "../interfaces/ITwilightAccountFactory.sol";
 import "../utils/String.sol";
 
-contract TwilightAccountFactory is ITwilightAccountFactory, Ownable {
+contract TwilightAccountFactory is ITwilightAccountFactory {
 
     using String for string;
 
