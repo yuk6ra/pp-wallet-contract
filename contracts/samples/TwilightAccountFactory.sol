@@ -1,13 +1,21 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.18;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Create2.sol";
 import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 import "./SimpleAccount.sol";
+import "../interfaces/ITwilightAccountFactory.sol";
+import "../utils/String.sol";
 
-contract TwilightAccountFactory {
+contract TwilightAccountFactory is ITwilightAccountFactory, Ownable {
+
+    using String for string;
+
     SimpleAccount public immutable accountImplementation;
+
+    // bytes32[] allowlist;
 
     constructor(IEntryPoint _entryPoint) {
         accountImplementation = new SimpleAccount(_entryPoint);
@@ -44,8 +52,12 @@ contract TwilightAccountFactory {
             )));
     }
 
-    function _generateSalt(string calldata username) private pure returns (bytes32) {
-        return keccak256(bytes(username));
+    function _generateSalt(string calldata username) public pure returns (bytes32) {
+        return keccak256(bytes(username.toLowerCase()));
     }
+
+    // function getPlatformId(string memory platform) public pure returns (bytes32) {
+    //     return keccak256(bytes(platform));
+    // }
 
 }
