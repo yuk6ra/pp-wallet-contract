@@ -52,7 +52,7 @@ contract TwilightAccountFactory is ITwilightAccountFactory, Ownable {
             )));
     }
 
-    function _generateSalt(string calldata username) public pure returns (bytes32) {
+    function _generateSalt(string calldata username) private pure returns (bytes32) {
         return keccak256(bytes(username.toLowerCase()));
     }
 
