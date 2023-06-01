@@ -1,6 +1,22 @@
+# TWILIGHT
+
+## Deploy
+
+```
+$ npx hardhat run scripts/deploy-twilight-account-factory.js --network mumbai                                                  ```
+
+```
+$ npx hardhat verify <CA>  --network mumbai --constructor-args args/simple-acount-factory.js
+```
+
+
+# Account Abstraction
+
+https://github.com/eth-infinitism/account-abstraction
+
 Implementation of contracts for [ERC-4337](https://eips.ethereum.org/EIPS/eip-4337) account abstraction via alternative mempool.
 
-# Resources
+## Resources
 
 [Vitalik's post on account abstraction without Ethereum protocol changes](https://medium.com/infinitism/erc-4337-account-abstraction-without-ethereum-protocol-changes-d75c9d94dc4a)
 
