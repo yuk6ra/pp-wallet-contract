@@ -2,7 +2,7 @@
 pragma solidity ^0.8.12;
 import "../samples/SimpleAccount.sol";
 
-interface ITwilightAccountFactory {
+interface IPPAccountFactory {
 
     function createAccount(
         address owner,

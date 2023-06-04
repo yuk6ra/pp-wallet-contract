@@ -15,7 +15,7 @@ async function main () {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const contractF = await hre.ethers.getContractFactory('TwilightAccountFactory')
+  const contractF = await hre.ethers.getContractFactory('PPAccountFactory')
 
   const contract = await contractF.deploy(args[0])
 
